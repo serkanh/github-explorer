@@ -1,21 +1,34 @@
-var axios = require('axios');
-var labels = ['security','js']
-module.exports={
-	fetchReposWithLabels:fetchReposWithLabels
-}
+var axios = require("axios");
+var labels = ["security", "js"];
+module.exports = {
+  fetchReposWithLabels: fetchReposWithLabels
+};
 
-function fetchReposWithLabels(){
-	return axios.get('https://api.github.com/search/repositories?q=topic:dns+topic:security+topic:hacking')
-	.then(function(response){
-		return response.data.items
-	})
-	.then(function(data){
-		data.map(function(element){
-			console.log('==============')
-			console.log(element.html_url)
-			console.log(element.description)
-			console.log('==============')
-		})
-	})
+/**
+ * @param {Array}
+ * @return {Array.<{name: string, html_url: string, description: string, github_stars: Number}>}
+ */
+function fetchReposWithLabels() {
+  var data = {};
+  return axios
+    .get(
+      "https://api.github.com/search/repositories?q=topic:s3+topic:security&sort=stars&order=desc"
+    )
+    .then(function(response) {
+      return response.data.items;
+    })
+    .then(function(data) {
+      return data.map(function(element) {
+        return {
+          name: element.name,
+          html_url: element.html_url,
+          description: element.description,
+          github_stars: element.stargazers_count
+        };
+      });
+    })
+    .then(function(data) {
+      console.log(data);
+    });
 }
-fetchReposWithLabels()
+fetchReposWithLabels();
