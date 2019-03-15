@@ -32,7 +32,7 @@ function fetchReposWithLabels() {
       console.log(data);
     });
 }
-fetchReposWithLabels();
+//fetchReposWithLabels();
 
 /**
  * A function to construct url with given array of tags
