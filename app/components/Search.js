@@ -1,4 +1,5 @@
 var React = require("react");
+var api = require("../utils/api");
 
 class Labelinput extends React.Component {
   constructor(props) {
@@ -57,6 +58,9 @@ class Search extends React.Component {
   }
 
   handleSubmit(label) {
+    api.fetchReposWithLabels(label).then(function(data) {
+      console.log(data);
+    });
     this.setState(function() {
       var newState = {};
       newState["label"] = label;

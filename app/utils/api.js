@@ -2,19 +2,24 @@ var axios = require("axios");
 var labels = ["security", "js"];
 module.exports = {
   constructUri: constructUri,
-  fetchReposWithLabels: fetchReposWithLabels
+  fetchReposWithLabels: fetchReposWithLabels,
+  stringToArray: stringToArray
 };
 
 /**
- * @param {Array}
+ * @param {string}
  * @return {Array.<{name: string, html_url: string, description: string, github_stars: Number}>}
  */
-function fetchReposWithLabels() {
-  var data = {};
+function fetchReposWithLabels(label) {
+  var arr = stringToArray(label);
+  var params = constructUri(arr);
+  var encodedUrl = window.encodeURI(
+    "https://api.github.com/search/repositories?q=" +
+      params +
+      "&sort=stars&order=desc"
+  );
   return axios
-    .get(
-      "https://api.github.com/search/repositories?q=topic:s3+topic:security&sort=stars&order=desc"
-    )
+    .get(encodedUrl)
     .then(function(response) {
       return response.data.items;
     })
@@ -27,12 +32,18 @@ function fetchReposWithLabels() {
           github_stars: element.stargazers_count
         };
       });
-    })
-    .then(function(data) {
-      console.log(data);
     });
 }
-//fetchReposWithLabels();
+
+/**
+ * A function that receives a comma seperated string
+ * and return an array.
+ * @params{string}
+ */
+
+function stringToArray(str) {
+  return str.split(",");
+}
 
 /**
  * A function to construct url with given array of tags
@@ -42,9 +53,9 @@ function constructUri(tagarray) {
   return tagarray
     .map(function(value, i, array) {
       if (array.length - 1 === i) {
-        return "q=topic:" + value;
+        return "topic:" + value;
       }
-      return "q=topic:" + value + "+";
+      return "topic:" + value + "+";
     })
     .join("");
 }
