@@ -1,6 +1,7 @@
 var axios = require("axios");
 var labels = ["security", "js"];
 module.exports = {
+  constructUri: constructUri,
   fetchReposWithLabels: fetchReposWithLabels
 };
 
@@ -32,3 +33,18 @@ function fetchReposWithLabels() {
     });
 }
 fetchReposWithLabels();
+
+/**
+ * A function to construct url with given array of tags
+ * @params {string[]}
+ */
+function constructUri(tagarray) {
+  return tagarray
+    .map(function(value, i, array) {
+      if (array.length - 1 === i) {
+        return "q=topic:" + value;
+      }
+      return "q=topic:" + value + "+";
+    })
+    .join("");
+}
