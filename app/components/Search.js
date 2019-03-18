@@ -47,25 +47,61 @@ class Labelinput extends React.Component {
   }
 }
 
+function RepoGrid(props) {
+  return (
+    <ul className="popular-list">
+      {props.repos.map(function(repo, index) {
+        return (
+          <li key={repo.name} className="popular-item">
+            <div className="popular-rank">#{index + 1}</div>
+            <ul className="space-list-items">
+              <li>
+                <a href={repo.html_url}>{repo.name}</a>
+              </li>
+
+              <li>{repo.github_stars} stars</li>
+            </ul>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      label: null
+      label: "s3",
+      repos: []
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.handleSubmit(this.state.label);
+  }
+
   handleSubmit(label) {
-    api.fetchReposWithLabels(label).then(function(data) {
-      console.log(data);
-    });
+    //console.log(label);
     this.setState(function() {
-      var newState = {};
-      newState["label"] = label;
-      return newState;
+      return {
+        label: label,
+        repos: []
+      };
     });
+
+    api.fetchReposWithLabels(label).then(
+      function(repos) {
+        console.log(repos);
+        this.setState(function() {
+          return {
+            repos: repos
+          };
+        });
+      }.bind(this)
+    );
   }
 
   render() {
@@ -73,6 +109,12 @@ class Search extends React.Component {
       <div>
         <Labelinput label="" onSubmit={this.handleSubmit} />
         {this.state.label}
+
+        {!this.state.repos ? (
+          <p>LOADING!</p>
+        ) : (
+          <RepoGrid repos={this.state.repos} />
+        )}
       </div>
     );
   }
