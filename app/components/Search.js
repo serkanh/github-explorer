@@ -77,7 +77,7 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      label: "s3",
+      label: "aws,security",
       repos: []
     };
 
