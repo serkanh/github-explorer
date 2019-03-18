@@ -34,3 +34,11 @@ li {
   width: 150px;
   border-radius: 50%;
 }
+
+.label-header {
+  text-align: center;
+}
+
+.row {
+  text-align: center;
+}

@@ -110,7 +110,9 @@ class Search extends React.Component {
     return (
       <div>
         <Labelinput label="" onSubmit={this.handleSubmit} />
-        {this.state.label}
+        <div className="label-header">
+          <h3>{this.state.label}</h3>
+        </div>
 
         {!this.state.repos ? (
           <p>LOADING!</p>
