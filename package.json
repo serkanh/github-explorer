@@ -11,7 +11,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open",
-    "test": "jest"
+    "test": "jest",
+    "predeploy": "webpack --mode production"
   },
   "jest": {
     "verbose": true,
@@ -24,7 +25,6 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
-    "gh-pages": "^2.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
