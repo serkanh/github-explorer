@@ -12,7 +12,7 @@
   "scripts": {
     "start": "webpack-dev-server --open",
     "test": "jest",
-    "predeploy": "webpack --mode production"
+    "build": "webpack --mode production"
   },
   "jest": {
     "verbose": true,
