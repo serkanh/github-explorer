@@ -12,7 +12,9 @@
   "scripts": {
     "start": "webpack-dev-server --open",
     "test": "jest",
-    "build": "NODE_ENV=production webpack"
+    "build": "NODE_ENV=production webpack",
+    "firebase-init": "firebase login && firebase init",
+    "deploy": "npm run build && firebase deploy"
   },
   "jest": {
     "verbose": true,
@@ -41,6 +43,7 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
+    "firebase-tools": "^6.5.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.5.0",
     "style-loader": "^0.23.0",

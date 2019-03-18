@@ -79,3 +79,7 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 dist/
+
+.firebaserc
+firebase.json
+.firebase/
