@@ -29,7 +29,8 @@ function fetchReposWithLabels(label) {
           name: element.name,
           html_url: element.html_url,
           description: element.description,
-          github_stars: element.stargazers_count
+          github_stars: element.stargazers_count,
+          owner_avatar_url: element.owner.avatar_url
         };
       });
     });

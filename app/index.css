@@ -30,3 +30,7 @@ li {
 .space-list-items {
   margin-bottom: 7px;
 }
+.avatar {
+  width: 150px;
+  border-radius: 50%;
+}
